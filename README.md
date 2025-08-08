@@ -1,6 +1,6 @@
 # NPCL Dashboard
 
-A comprehensive Power Management Dashboard for NPCL (Nepal Power Company Limited) built with Next.js 14, TypeScript, Prisma, and PostgreSQL.
+A comprehensive Power Management Dashboard for NPCL (Noida Power Company Limited) built with Next.js 14, TypeScript, Prisma, and PostgreSQL.
 
 ## Features
 
@@ -55,52 +55,53 @@ npcl-dashboard/
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - PostgreSQL 12+
 - npm or yarn
 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/your-username/npcl-dashboard.git
    cd npcl-dashboard
    ```
-
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
-
 3. **Set up environment variables**
+
    ```bash
    cp .env.example .env
    ```
-   
+
    Update the `.env` file with your configuration:
+
    ```env
    DATABASE_URL="postgresql://username:password@localhost:5432/npcl_dashboard"
    NEXTAUTH_SECRET="your-secret-key-here-make-it-long-and-random"
    NEXTAUTH_URL="http://localhost:3000"
    ```
-
 4. **Set up the database**
+
    ```bash
    # Generate Prisma client
    npm run db:generate
-   
+
    # Push database schema
    npm run db:push
-   
+
    # Seed the database with sample data
    npm run db:seed
    ```
-
 5. **Start the development server**
+
    ```bash
    npm run dev
    ```
-
 6. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
 
@@ -108,11 +109,11 @@ npcl-dashboard/
 
 After seeding the database, you can log in with these default accounts:
 
-| Role     | Email               | Password    |
-|----------|--------------------|-----------|
-| Admin    | admin@npcl.com     | admin123  |
-| Operator | operator@npcl.com  | operator123 |
-| Viewer   | viewer@npcl.com    | viewer123 |
+| Role     | Email             | Password    |
+| -------- | ----------------- | ----------- |
+| Admin    | admin@npcl.com    | admin123    |
+| Operator | operator@npcl.com | operator123 |
+| Viewer   | viewer@npcl.com   | viewer123   |
 
 ## Available Scripts
 
@@ -132,6 +133,7 @@ After seeding the database, you can log in with these default accounts:
 ## API Endpoints
 
 ### Authentication (NextAuth.js)
+
 - `POST /api/auth/signin/credentials` - User login (NextAuth.js)
 - `POST /api/auth/signout` - User logout (NextAuth.js)
 - `GET /api/auth/session` - Get session info (NextAuth.js)
@@ -141,14 +143,17 @@ After seeding the database, you can log in with these default accounts:
 - `POST /api/auth/change-password` - Change password (Custom)
 
 ### Debug Endpoints (Development)
+
 - `GET /api/auth/test-session` - Session debugging
 - `POST /api/auth/test-login` - Credential validation testing
 
 ### Dashboard
+
 - `GET /api/dashboard/stats` - Get dashboard statistics
 - `GET /api/dashboard/power-units` - Get power units with readings
 
 ### User Management (Admin only)
+
 - `GET /api/auth/users` - Get all users
 - `PUT /api/auth/users/[id]` - Update user
 - `DELETE /api/auth/users/[id]` - Delete user
@@ -201,16 +206,16 @@ docker run -p 3000:3000 npcl-dashboard
 
 ## Environment Variables
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `DATABASE_URL` | PostgreSQL connection string | Yes |
-| `NEXTAUTH_SECRET` | JWT secret key | Yes |
-| `NEXTAUTH_URL` | Application URL | Yes |
-| `JWT_EXPIRES_IN` | JWT expiration time | No |
-| `EMAIL_HOST` | SMTP host for notifications | No |
-| `EMAIL_PORT` | SMTP port | No |
-| `EMAIL_USER` | SMTP username | No |
-| `EMAIL_PASS` | SMTP password | No |
+| Variable            | Description                  | Required |
+| ------------------- | ---------------------------- | -------- |
+| `DATABASE_URL`    | PostgreSQL connection string | Yes      |
+| `NEXTAUTH_SECRET` | JWT secret key               | Yes      |
+| `NEXTAUTH_URL`    | Application URL              | Yes      |
+| `JWT_EXPIRES_IN`  | JWT expiration time          | No       |
+| `EMAIL_HOST`      | SMTP host for notifications  | No       |
+| `EMAIL_PORT`      | SMTP port                    | No       |
+| `EMAIL_USER`      | SMTP username                | No       |
+| `EMAIL_PASS`      | SMTP password                | No       |
 
 ## Contributing
 

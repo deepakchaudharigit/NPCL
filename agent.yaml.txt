@@ -1,0 +1,94 @@
+name: next-auth-rbac-agent
+description: AI agent for securing and testing Next.js project with NextAuth, RBAC, Prisma, Zod, and Jest
+language: typescript
+framework: nextjs
+project_root: ./
+
+features:
+  - next-auth
+  - prisma
+  - zod
+  - rbac
+  - csrf
+  - secure-password
+  - jest
+
+docs:
+  changelog:
+    format: markdown
+    location: docs/
+    naming: "{[count]}-{time}-{date}.md"  # e.g., 03-1532-2025-07-31.md
+    append_to_readme: true
+
+commands:
+  post_fix:
+    - echo "🧠 Change logged in docs/" >> README.md
+    - node scripts/update-readme-summary.js
+
+rules:
+  - match: "process\\.env"
+    rewrite: "import { env } from '@/config/env'"
+    condition: "if file does not already import from @/config/env'"
+    auto_fix: true
+
+settings:
+  auth:
+    enforce-jwt: true
+    password-min-length: 8
+    csrf-protection: true
+    session-token-header: next-auth.session-token
+
+  rbac:
+    default-role: user
+    fallback-permission-handling: true
+    validate-permissions-schema: true
+
+  validation:
+    schema-library: zod
+    zod-version: 3
+
+  testing:
+    library: jest
+    mock-session: true
+    mock-prisma: true
+    mock-email: true
+    test-directories:
+      - __tests__
+    skip-empty-tests: false
+
+  file-structure:
+    enforce-app-router: true
+    use-src-directory: false
+    api-directory: app/api
+    middleware-directory: middleware
+    models-directory: models
+    lib-directory: lib
+    components-directory: components
+    hooks-directory: hooks
+    test-directory: __tests__
+
+shortcuts:
+  fix-auth-tests:
+    description: Fix test, RBAC, and auth issues with changelog tracking
+    run: qodo fix --scope tests --learn --auth --rbac --persist --log-changes
+
+memory:
+  persist: true
+  learn-from-fixes: true
+
+tools:
+  - jest
+  - ts-jest
+  - supertest
+  - next-auth
+  - prisma
+  - zod
+  - nodemailer
+
+metadata:
+  created_by: qodo
+  tags:
+    - next-auth
+    - rbac
+    - changelog
+    - secure

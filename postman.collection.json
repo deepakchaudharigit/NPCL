@@ -1,0 +1,351 @@
+{
+	"info": {
+		"_postman_id": "b10fc905-f937-4e93-b8b7-2910082cb55b",
+		"name": "NPCL Dashboard APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45768621"
+	},
+	"item": [
+		{
+			"name": "Login (NextAuth)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "vanshaj@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "NewPassword2!",
+							"type": "text"
+						},
+						{
+							"key": "redirect",
+							"value": "false",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/auth/signin/credentials",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"signin",
+						"credentials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Session (NextAuth)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/auth/session",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"session"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout (NextAuth)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "callbackUrl",
+							"value": "{{baseUrl}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/auth/signout",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"signout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Session (Debug)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/auth/test-session",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"test-session"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Login (Debug)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"vanshaj@gmail.com\",\n  \"password\": \"NewPassword2!\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/auth/test-login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"test-login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Vanshaj\",\n  \"email\": \"vanshaj@gmail.com\",\n  \"password\": \"Vanshaj1@gmail\",\n  \"confirmPassword\": \"Vanshaj1@gmail\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/auth/register",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Forgot Password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"admin@gmail.com\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/auth/forgot-password",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"forgot-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset Password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"token\": \"1ba0d926c6f7361ce1219eb29ff8d24868906b38889b79d7915968cb6c75e2f2\",\n  \"password\": \"NewPassword1!\",\n  \"confirmPassword\": \"NewPassword1!\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/auth/reset-password",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"reset-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Password",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..f9bZXS6fCJayRjng.K1va2NN4JWPmDa49umkgzH1SB9XXorNVT8Q7nSZejaKy66eOmetY2znb5qpm1fHqKulldzi3yt2W_SLHbhCOlmgLj17ggRRlpTP1_L-GNYuj4dS6KMKUrzhcWygLyehAL8TjChhkav-UqUBoQ6b5-gdL-DwDWUyz8q94N2hy4FuaS5ioyLtBM1T9ZDPJClGp4cSiU81RhkRm0p-EeV_7Ayik.4uQhWBh4m0Ae3jj07HP0oQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"currentPassword\": \"NewPassword2!\",\n  \"newPassword\": \"NewPassword3!\",\n  \"confirmNewPassword\": \"NewPassword3!\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/auth/change-password",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"change-password"
+					]
+				}
+			},
+			"response": []
+		},
+
+		{
+			"name": "Get All Users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..65Lt60rAFOjizJve.O768lveIBgEZn6N9mEqht4irk6RLuqljwZCqRtSCUnodP44_b_TP_FZXiLj56694CiDSP5cdNLRBYx6yF038YtggLNwGjUnUOXt5o-vDPgx7A6RZoD-XKVJhZVTHunWXAm83ISzKWnWENNwqLEZs5f56CALD5IWXEQ0qbcrCJiUDWmG0w8635dun6mtOfol1j-4omyGaZsK0RwMa.urW3kGAfZ2y3vwBr6F-xng",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/auth/users",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User By ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..65Lt60rAFOjizJve.O768lveIBgEZn6N9mEqht4irk6RLuqljwZCqRtSCUnodP44_b_TP_FZXiLj56694CiDSP5cdNLRBYx6yF038YtggLNwGjUnUOXt5o-vDPgx7A6RZoD-XKVJhZVTHunWXAm83ISzKWnWENNwqLEZs5f56CALD5IWXEQ0qbcrCJiUDWmG0w8635dun6mtOfol1j-4omyGaZsK0RwMa.urW3kGAfZ2y3vwBr6F-xng",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/auth/users/22",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"users",
+						"22"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000"
+		}
+	]
+}

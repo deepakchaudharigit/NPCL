@@ -1,45 +1,32 @@
-# NPCL Dashboard Docker Compose Configuration
-# This file sets up the complete development environment with PostgreSQL
-
-version: '3.8'
-
 services:
-  # PostgreSQL Database
   postgres:
     image: postgres:15-alpine
     container_name: npcl-postgres
     restart: unless-stopped
+    env_file: .env.docker
     environment:
-      POSTGRES_DB: npcl_dashboard
-      POSTGRES_USER: npcl_user
-      POSTGRES_PASSWORD: npcl_password
+      POSTGRES_DB: npcl-auth-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./scripts/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./scripts/db:/docker-entrypoint-initdb.d:ro
     networks:
       - npcl-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U npcl_user -d npcl_dashboard"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d npcl-auth-db"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  # NPCL Dashboard Application
   app:
     build:
       context: .
-      dockerfile: Dockerfile
     container_name: npcl-dashboard
     restart: unless-stopped
-    environment:
-      - NODE_ENV=production
-      - DATABASE_URL=postgresql://npcl_user:npcl_password@postgres:5432/npcl_dashboard
-      - NEXTAUTH_SECRET=your-secret-key-here-make-it-long-and-random-minimum-32-characters
-      - NEXTAUTH_URL=http://localhost:3000
-      - ENABLE_REGISTRATION=true
-      - ENABLE_EMAIL_NOTIFICATIONS=false
+    env_file: .env.docker
     ports:
       - "3000:3000"
     depends_on:
@@ -50,12 +37,11 @@ services:
     volumes:
       - ./uploads:/app/uploads
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:3000/api/health || exit 1"]
+      test: ["CMD-SHELL", "curl -fsS http://localhost:3000/api/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
 
-  # Redis (Optional - for session storage and caching)
   redis:
     image: redis:7-alpine
     container_name: npcl-redis
@@ -66,14 +52,13 @@ services:
       - redis_data:/data
     networks:
       - npcl-network
-    command: redis-server --appendonly yes
+    command: ["redis-server", "--appendonly", "yes"]
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  # Nginx (Optional - for reverse proxy and load balancing)
   nginx:
     image: nginx:alpine
     container_name: npcl-nginx
@@ -93,34 +78,8 @@ services:
 
 volumes:
   postgres_data:
-    driver: local
   redis_data:
-    driver: local
 
 networks:
   npcl-network:
     driver: bridge
-
-# Development override
-# Use: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
----
-# docker-compose.dev.yml (for development)
-version: '3.8'
-
-services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    environment:
-      - NODE_ENV=development
-      - CHOKIDAR_USEPOLLING=true
-    volumes:
-      - .:/app
-      - /app/node_modules
-      - /app/.next
-    command: npm run dev
-
-  postgres:
-    ports:
-      - "5433:5432"  # Different port for dev to avoid conflicts
